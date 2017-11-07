@@ -1,8 +1,27 @@
 # import necessary libraries 
 import os # to access our OS environment variables 
-
 import twitter 
-# pip install python twitter into an active virtaul env
+
+#use os.environ to get environmental variables 
+# run source secrets.sh before running this file 
+
+api = twitter.Api(
+    consumer_key=os.environ['TWITTER_CONSUMER_KEY'], 
+    consumer_secret=os.environ['TWITTER_CONSUMER_SECRET'],
+    access_token_key=os.environ['TWITTER_ACCESS_TOKEN_KEY'], 
+    access_token_secret=os.environ['TWITTER_ACCESS_TOKEN_SECRET']
+)
+
+# This will print info about credentials to make sure they're correct 
+# print api.VerifyCredentials()
+
+followers = api.GetFollowers()
+
+for follower in followers: 
+    print "Name: ", follower.name
+    print "Number of Friends: ", follower.friends_count
+    if follower.geo_enabled: 
+        print follower.location
 
 # read tweets and create corpus 
 
