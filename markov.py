@@ -2,6 +2,7 @@
 import os # to access our OS environment variables 
 import twitter 
 from random import choice
+import sys
 
 #use os.environ to get environmental variables 
 # run source secrets.sh before running this file 
@@ -49,6 +50,25 @@ def extract_entities(results):
 
 # combine all contents 
 # all_contents = contents + contents_2 + contents_3
+
+
+def open_and_read_file(filenames):
+    """Given a list of files, open them, read the text, and return one long
+        string."""
+
+    body = ""
+
+    for filename in filenames:
+        text_file = open(filename)
+        body = body + text_file.read()
+        text_file.close()
+
+    return body
+
+
+files = sys.argv[1:]
+
+contents = open_and_read_file(files)
 
 # make_chains 
 def make_chains(text_string):
@@ -100,5 +120,6 @@ def make_text(chains):
     return " ".join(words)
 
 
+# The Project Gutenberg EBook of Hints on cheese-making, by Thomas Day Curtis
 # print make_text(chains) 
 # # tweet it 
