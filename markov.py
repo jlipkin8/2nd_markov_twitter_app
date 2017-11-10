@@ -19,6 +19,8 @@ api = twitter.Api(
 statuses_1 = api.GetUserTimeline(None,"WebMD")
 statuses_2 = api.GetUserTimeline(None, "epicurious")
 statuses_3 = api.GetSearch(term="cheese", lang="en")
+statuses_4 = api.GetSearch(term="foodies", lang="en")
+statuses_5 = api.GetSearch(term="silly", lang="en")
 
 # read tweets and create corpus 
 def create_corpus(text): 
@@ -29,10 +31,24 @@ def create_corpus(text):
 
     return corpus 
 
-contents =  create_corpus(statuses_3)
+def extract_entities(results): 
+    entities = []
+    for result in results: 
+        if result.entities: 
+            entities.append(result.entities)
+
+    return entities
+
+
+# contents =  create_corpus(statuses_3)
+# contents_2 = create_corpus(statuses_4)
+# contents_3 = create_corpus(statuses_5)
 # everything was in unicode
 # this lead me to this article 
 # http://www.pgbovine.net/unicode-python.htm
+
+# combine all contents 
+# all_contents = contents + contents_2 + contents_3
 
 # make_chains 
 def make_chains(text_string):
@@ -57,7 +73,7 @@ def make_chains(text_string):
     return chains
 
 
-# chains = make_chains(contents)
+# chains = make_chains(all_contents)
 
 
 # make text
